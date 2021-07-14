@@ -11,26 +11,44 @@ public class DynamicArray {
     }
 
     public int get(int index) {
+        if (index > size - 1) {
+            System.out.println("ERROR");
+            return 0;
+        }
         return arr[index];
     }
 
-    public void add(int index, int value) {
-        if (size >= capacity) {
-            resizeArray(capacity * 2);
-        }
-
-        for (int i = 0; i < size - index; i++) {
-            arr[size - i] = arr[size - i - 1];
-        }
-        arr[index] = value;
-        size++;
-    }
+    //    public void insert(int index, int value) {
+    //        if(index > size - 1) {
+    //            System.out.println("ERROR");
+    //            return;
+    //        }
+    //
+    //        if (size >= capacity) {
+    //            resizeArray(capacity * 2);
+    //        }
+    //
+    //        for (int i = 0; i < size - index; i++) {
+    //            arr[size - i] = arr[size - i - 1];
+    //        }
+    //        arr[index] = value;
+    //        size++;
+    //    }
 
     public void set(int index, int value) {
+        if (index > size - 1) {
+            System.out.println("ERROR");
+            return;
+        }
         arr[index] = value;
     }
 
     public void remove(int index) {
+        if (index > size - 1) {
+            System.out.println("ERROR");
+            return;
+        }
+
         if (size <= capacity / 2) {
             //Shrink array cap
             resizeArray(capacity / 2);
@@ -56,11 +74,28 @@ public class DynamicArray {
         size++;
     }
 
-    public void printAll() {
-        System.out.println("size: " + size + ", capacity: " + capacity);
-        for (int i = 0; i < size; i++) {
-            System.out.println(arr[i]);
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void printStructure() {
+        String arrStr = "[ ]";
+        if (!isEmpty()) {
+            StringBuilder arrStrBuilder = new StringBuilder("[ ");
+            for (int i = 0; i < size; i++) {
+                arrStrBuilder.append(arr[i]);
+                if (i < size - 1) {
+                    arrStrBuilder.append(", ");
+                }
+            }
+            arrStrBuilder.append(" ]");
+            arrStr = arrStrBuilder.toString();
         }
+        System.out.println("Size = " + size + ", Cap = " + capacity + ", arr = " + arrStr);
     }
 
     private void resizeArray(int newCap) {
