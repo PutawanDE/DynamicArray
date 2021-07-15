@@ -61,6 +61,11 @@ public class DynamicArray {
     }
 
     public int popBack() {
+        if(size == 0) {
+            System.out.println("ERROR");
+            return 0;
+        }
+
         int retrieved = arr[size - 1];
         remove(size - 1);
         return retrieved;
